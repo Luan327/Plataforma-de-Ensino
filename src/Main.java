@@ -15,12 +15,21 @@ public class Main {
         System.out.print("Quantas aulas tem o curso? ");
         int quantidadeAula = sc.nextInt();
 
+        char ch;
         for (int i = 0 ; i < quantidadeAula ; i++){
             System.out.println("Dados da " + (i + 1) + "ª aula");
-            sc.nextLine(); // consumo de linha;
 
-            System.out.print("Conteudo ou tarefa ( c/t) ");
-            char ch = sc.next().toLowerCase().charAt(0);
+            while(true){
+                System.out.print("Conteudo ou tarefa ( c/t) ");
+                 ch = sc.next().toLowerCase().charAt(0);
+                 if(ch == 'c' || ch == 't'){
+                     sc.nextLine();
+                     break;
+                 }else {
+                     System.out.println("Entrada invalida ! digite apenas  ( 'c' ou 't') ");
+                 }
+
+            }
 
             System.out.print("TITULO : ");
             String titulo = sc.nextLine();
@@ -29,12 +38,12 @@ public class Main {
                 System.out.print("URL do video: ");
                 String url = sc.nextLine();
 
-                System.out.println("Duração em segundos: ");
+                System.out.print("Duração em segundos: ");
                 int segundos = sc.nextInt();
 
                 sc.nextLine();
                 lessonList.add(new Video(titulo,url,segundos));
-            } else if (ch == 't') {
+            } else{
                 System.out.print("Descrição: ");
                 String descricao = sc.nextLine();
 
@@ -43,12 +52,14 @@ public class Main {
 
                 sc.nextLine();
                 lessonList.add(new Task(titulo,descricao,quantidadeQuestoes));
-            }else{
-
             }
         }
-
-
+        System.out.println();
+        int duracaoSoma = 0;
+        for (Lesson lesson : lessonList) {
+            duracaoSoma += lesson.duration();
+        }
+        System.out.println("Duracao total do curso = " + duracaoSoma);
         sc.close();
     }
 }
